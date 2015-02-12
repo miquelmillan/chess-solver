@@ -6,7 +6,6 @@ import com.mm.cs.model.piece.Piece;
 
 public class ArrayBoard implements Board {
 	private NoColorSquare[][] board;
-	private Piece[] pieces;
 	
 	public ArrayBoard(int rows, int columns, Piece ...pieces){
 		//rows and columns check
@@ -15,7 +14,6 @@ public class ArrayBoard implements Board {
 		}
 		
 		board = new NoColorSquare[rows][columns];
-		this.pieces = pieces;
 	}
 
 	@Override
