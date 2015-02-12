@@ -1,0 +1,4 @@
+Use maven to build the project:
+ - mvn clean package
+ 
+Use it!
