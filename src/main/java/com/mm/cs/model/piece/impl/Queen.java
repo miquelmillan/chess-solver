@@ -3,7 +3,18 @@ package com.mm.cs.model.piece.impl;
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.Square;
 import com.mm.cs.model.piece.Piece;
-
+/**
+ * Piece implementation according to the rules of a Queen piece:
+ * x o x o x
+ * o x x x o
+ * x x X x x
+ * o x x x o
+ * x o x o x
+ * 
+ * @author miquel.millan@gmail.com
+ * @version 1.0
+ *
+ */
 public class Queen implements Piece {
 	private Board board;
 	
@@ -16,32 +27,60 @@ public class Queen implements Piece {
 		if (this.board.getBoard()[row][column].isFree()){
 			Square[][] boardArray = this.board.getBoard();
 			Square[] columnSquares = board.getColumn(column);
-			Square[] rowSquares = board.getColumn(row);
-
+			Square[] rowSquares = board.getRow(row);
+			
+			int bottomRow = 0;
+			int upperRow = 0;
+			int postColumn = 0;
+			int preColumn = 0;
+			
 			//occupy the positions
-			/*
-			 ==>
-			 x o x o x
-			 o x x x o
-			 x x X x x
-			 o x x x o
-			 x o x o x
-			 
-			 */
-			//diagonals
+			//1.- position
+			boardArray[row][column].setPiece(this);
+			
+			//2.- diagonals
 			for (int i=0;i<boardArray[0].length;i++){
-				int position = row - i;
-				boardArray[row+position][i].setFree(false);
-				boardArray[row-position][i].setFree(false);
+				bottomRow = row + i;
+				upperRow = row - i;
+				postColumn = column + i;
+				preColumn = column - i;
+				
+				if (bottomRow >= 0 && bottomRow < boardArray.length) {
+					if (preColumn >= 0 && preColumn < boardArray[0].length) {
+						boardArray[bottomRow][preColumn].increaseOccupation();
+					}
+				}
+				if (bottomRow >= 0 && bottomRow < boardArray.length) {
+					if (postColumn >= 0 && postColumn < boardArray[0].length) {
+						boardArray[bottomRow][postColumn].increaseOccupation();
+					}
+				}
+				if (upperRow >= 0 && upperRow < boardArray.length) {
+					if (preColumn >= 0 && preColumn < boardArray[0].length) {
+						boardArray[upperRow][preColumn].increaseOccupation();
+					}
+				}
+				if (upperRow >= 0 && upperRow < boardArray.length) {
+					if (postColumn >= 0 && postColumn < boardArray[0].length) {
+						boardArray[upperRow][postColumn].increaseOccupation();
+					}
+				}
 			}
 			
+			//3.- column
 			for (Square square: columnSquares){
-				square.setFree(false);
+				square.increaseOccupation();
 			}
 			
+			//4.- row
 			for (Square square: rowSquares){
-				square.setFree(false);
+				square.increaseOccupation();
 			}
 		}
+	}
+	
+	@Override
+	public String toString(){
+		return "Q ";
 	}
 }

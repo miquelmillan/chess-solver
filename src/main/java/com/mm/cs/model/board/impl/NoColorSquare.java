@@ -2,15 +2,18 @@ package com.mm.cs.model.board.impl;
 
 import com.mm.cs.model.board.Square;
 import com.mm.cs.model.piece.Piece;
-
+/**
+ * Implementation of the Square interface. It represents a Square
+ * with no color.
+ * 
+ * @author miquel.millan@gmail.com
+ * @version 1.0
+ *
+ */
 public class NoColorSquare implements Square {
-	private Piece piece;
-	private boolean free;
-
-	public NoColorSquare(Piece piece, boolean free) {
-		this.piece = piece;
-		this.free = free;
-	}
+	//Values for the default constructor
+	private Piece piece = null;
+	private int occupation = 0;
 
 	public Piece getPiece() {
 		return piece;
@@ -20,11 +23,23 @@ public class NoColorSquare implements Square {
 		this.piece = piece;
 	}
 
-	public boolean isFree() {
-		return free;
+	public void increaseOccupation() {
+		occupation++;
 	}
 
-	public void setFree(boolean free) {
-		this.free = free;
+	public void decreaseOccupation() {
+		occupation = (occupation > 0 ? occupation - 1 : 0);
+	}
+
+	public int getOccupation() {
+		return occupation;
+	}
+	
+	public boolean isFree(){
+		boolean result = false;
+		if (piece == null && occupation == 0){
+			result = true;
+		}
+		return result;
 	}
 }
