@@ -62,6 +62,23 @@ public class ArrayBoard implements Board {
 	}
 	
 	@Override
+	public int[] getFirstFreePosition() {
+		int[] result = null;
+	
+		for (int i=0;(i<board.length&&result==null);i++){
+			for (int j=0;(j<board[i].length&&result==null);j++){
+				if (board[i][j].isFree()){
+					result = new int[2];
+					result[0]=i;
+					result[1]=j;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		for (int i=0;i<board.length;i++){

@@ -11,6 +11,7 @@ package com.mm.cs.model.board;
  */
 
 public interface Board {
+	
 	/**
 	 * Returns a board row by passing its index. If the row does not exists
 	 * returns null
@@ -25,6 +26,8 @@ public interface Board {
 	 * @return the column or null if it does not exist
 	 */
 	public Square[] getColumn(int index);
+
+	
 	/**
 	 * Returns an array representing the board. It can be used to freely
 	 * access any position of the board
@@ -32,4 +35,13 @@ public interface Board {
 	 * @return a representation of the board in form array
 	 */
 	public Square[][] getBoard();
+
+	/**
+	 * Returns the first free position of this board. Its up to the concrete implementation
+	 * how to find it, but the operation must return the same position if this operation
+	 * is called twice and the board has not been modified.
+	 * 
+	 * @return the First free position or null if no position is free.
+	 */
+	public int[] getFirstFreePosition();
 }
