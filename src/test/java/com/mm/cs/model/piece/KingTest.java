@@ -19,6 +19,13 @@ import com.mm.cs.model.piece.impl.King;
  *
  */
 public class KingTest {
+	String cleanBoardConfiguration= 
+			   "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o ";
+	
 	@Test
 	public void testConstructor() {
 		Board board = new ArrayBoard(5, 5);
@@ -37,8 +44,10 @@ public class KingTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, 2, 2);
+		king.moveTo(2, 2);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		king.removeFrom(2, 2);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -53,8 +62,10 @@ public class KingTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, 0, 0);
+		king.moveTo(0, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		king.removeFrom(0, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -69,8 +80,10 @@ public class KingTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, 0, 4);
+		king.moveTo(0, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		king.removeFrom(0, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));		
 	}
 
 	@Test
@@ -84,8 +97,10 @@ public class KingTest {
 
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, 4, 0);
+		king.moveTo(4, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		king.removeFrom(4, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -99,21 +114,23 @@ public class KingTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, 4, 4);
+		king.moveTo(4, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		king.removeFrom(4, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, 5, 5);
+		king.moveTo(5, 5);
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece king = new King(board);
-		king.moveTo(board, -1, 1);
+		king.moveTo(-1, 1);
 	}
 }

@@ -18,6 +18,13 @@ import com.mm.cs.model.piece.impl.Knight;
  *
  */
 public class KnightTest {
+	String cleanBoardConfiguration= 
+			   "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o ";
+	
 	@Test
 	public void testConstructor() {
 		Board board = new ArrayBoard(5, 5);
@@ -36,10 +43,12 @@ public class KnightTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, 2, 2);
+		knight.moveTo(2, 2);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		knight.removeFrom(2, 2);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
-
+	
 	@Test
 	public void testUpperLeftPosition() {
 		String boardConfiguration= 
@@ -52,9 +61,12 @@ public class KnightTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, 0, 0);
+		knight.moveTo(0, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		knight.removeFrom(0, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
+	
 	
 	@Test
 	public void testUpperRightPosition() {
@@ -68,9 +80,12 @@ public class KnightTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, 0, 4);
+		knight.moveTo(0, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		knight.removeFrom(0, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
+	
 
 	@Test
 	public void testBottomLeftPosition() {
@@ -83,9 +98,12 @@ public class KnightTest {
 
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, 4, 0);
+		knight.moveTo(4, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		knight.removeFrom(4, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
+	
 	
 	@Test
 	public void testBottomRightPosition() {
@@ -98,21 +116,24 @@ public class KnightTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, 4, 4);
+		knight.moveTo(4, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		knight.removeFrom(4, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
+	
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, 5, 5);
+		knight.moveTo(5, 5);
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece knight = new Knight(board);
-		knight.moveTo(board, -1, 1);
+		knight.moveTo(-1, 1);
 	}
 }

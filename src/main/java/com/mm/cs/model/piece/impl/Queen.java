@@ -15,70 +15,61 @@ import com.mm.cs.model.piece.Piece;
  * @version 1.0
  *
  */
-public class Queen implements Piece {
-	private Board board;
+public class Queen extends Piece {
 	
 	public Queen(Board board){
-		this.board = board;
+		super(board);
 	}
 	@Override
-	public void moveTo(Board board, int row, int column) {
-		//is the square free?
-		if (this.board.getBoard()[row][column].isFree()){
-			Square[][] boardArray = this.board.getBoard();
-			Square[] columnSquares = board.getColumn(column);
-			Square[] rowSquares = board.getRow(row);
+	protected void movement(int row, int column, Movement move){
+		Square[][] boardArray = this.board.getBoard();
+		Square[] columnSquares = board.getColumn(column);
+		Square[] rowSquares = board.getRow(row);
+		
+		int bottomRow = 0;
+		int upperRow = 0;
+		int postColumn = 0;
+		int preColumn = 0;
 			
-			int bottomRow = 0;
-			int upperRow = 0;
-			int postColumn = 0;
-			int preColumn = 0;
+		//1.- diagonals
+		for (int i=0;i<boardArray[0].length;i++){
+			bottomRow = row + i;
+			upperRow = row - i;
+			postColumn = column + i;
+			preColumn = column - i;
 			
-			//occupy the positions
-			//1.- position
-			boardArray[row][column].setPiece(this);
-			
-			//2.- diagonals
-			for (int i=0;i<boardArray[0].length;i++){
-				bottomRow = row + i;
-				upperRow = row - i;
-				postColumn = column + i;
-				preColumn = column - i;
-				
-				if (bottomRow >= 0 && bottomRow < boardArray.length) {
-					if (preColumn >= 0 && preColumn < boardArray[0].length) {
-						boardArray[bottomRow][preColumn].increaseOccupation();
-					}
-				}
-				if (bottomRow >= 0 && bottomRow < boardArray.length) {
-					if (postColumn >= 0 && postColumn < boardArray[0].length) {
-						boardArray[bottomRow][postColumn].increaseOccupation();
-					}
-				}
-				if (upperRow >= 0 && upperRow < boardArray.length) {
-					if (preColumn >= 0 && preColumn < boardArray[0].length) {
-						boardArray[upperRow][preColumn].increaseOccupation();
-					}
-				}
-				if (upperRow >= 0 && upperRow < boardArray.length) {
-					if (postColumn >= 0 && postColumn < boardArray[0].length) {
-						boardArray[upperRow][postColumn].increaseOccupation();
-					}
+			if (bottomRow >= 0 && bottomRow < boardArray.length) {
+				if (preColumn >= 0 && preColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[bottomRow][preColumn], move);
 				}
 			}
-			
-			//3.- column
-			for (Square square: columnSquares){
-				square.increaseOccupation();
+			if (bottomRow >= 0 && bottomRow < boardArray.length) {
+				if (postColumn >= 0 && postColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[bottomRow][postColumn], move);
+				}
 			}
-			
-			//4.- row
-			for (Square square: rowSquares){
-				square.increaseOccupation();
+			if (upperRow >= 0 && upperRow < boardArray.length) {
+				if (preColumn >= 0 && preColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[upperRow][preColumn], move);
+				}
+			}
+			if (upperRow >= 0 && upperRow < boardArray.length) {
+				if (postColumn >= 0 && postColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[upperRow][postColumn], move);
+				}
 			}
 		}
+		
+		//2.- column
+		for (Square square: columnSquares){
+			this.modifyPosition(square, move);
+		}
+		
+		//3.- row
+		for (Square square: rowSquares){
+			this.modifyPosition(square, move);
+		}
 	}
-	
 	@Override
 	public String toString(){
 		return "Q ";

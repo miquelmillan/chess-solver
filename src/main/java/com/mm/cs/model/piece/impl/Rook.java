@@ -15,37 +15,26 @@ import com.mm.cs.model.piece.Piece;
  * @version 1.0
  *
  */
-public class Rook implements Piece {
-	private Board board;
+public class Rook extends Piece {
 	
 	public Rook(Board board){
-		if (board != null){
-			this.board = board;
-		} else {
-			throw new IllegalArgumentException("Board must be defined");
-		}
+		super(board);
 	}
-	@Override
-	public void moveTo(Board board, int row, int column) {
-		//is the square free?
-		if (this.board.getBoard()[row][column].isFree()){
-			Square[][] boardArray = this.board.getBoard();
-			Square[] columnSquares = board.getColumn(column);
-			Square[] rowSquares = board.getRow(row);
 
-			//occupy the positions
-			//1.- position
-			boardArray[row][column].setPiece(this);
-			
-			//2.- column
-			for (Square square: columnSquares){
-				square.increaseOccupation();
-			}
-			
-			//3.- row
-			for (Square square: rowSquares){
-				square.increaseOccupation();
-			}
+	@Override
+	protected void movement(int row, int column, Movement move){
+		Square[] columnSquares = board.getColumn(column);
+		Square[] rowSquares = board.getRow(row);
+		
+		//occupy the positions
+		//1.- column
+		for (Square square: columnSquares){
+			this.modifyPosition(square, move);
+		}
+		
+		//2.- row
+		for (Square square: rowSquares){
+			this.modifyPosition(square, move);
 		}
 	}
 	

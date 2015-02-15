@@ -1,8 +1,9 @@
 package com.mm.cs.model.piece;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.impl.ArrayBoard;
@@ -18,13 +19,20 @@ import com.mm.cs.model.piece.impl.Rook;
  *
  */
 public class RookTest {
-	
+	String cleanBoardConfiguration= 
+			   "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o ";
+		
 	@Test
 	public void testConstructor() {
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
 		assertNotNull(rook);
 	}
+	
 	@Test
 	public void testMiddlePosition() {
 		String boardConfiguration= 
@@ -37,8 +45,10 @@ public class RookTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, 2, 2);
+		rook.moveTo(2, 2);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		rook.removeFrom(2, 2);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -53,8 +63,10 @@ public class RookTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, 0, 0);
+		rook.moveTo(0, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		rook.removeFrom(0, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -69,8 +81,10 @@ public class RookTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, 0, 4);
+		rook.moveTo(0, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		rook.removeFrom(0, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -84,8 +98,10 @@ public class RookTest {
 
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, 4, 0);
+		rook.moveTo(4, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		rook.removeFrom(4, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -99,21 +115,23 @@ public class RookTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, 4, 4);
+		rook.moveTo(4, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		rook.removeFrom(4, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, 5, 5);
+		rook.moveTo(5, 5);
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(board, -1, 1);
+		rook.moveTo(-1, 1);
 	}
 }

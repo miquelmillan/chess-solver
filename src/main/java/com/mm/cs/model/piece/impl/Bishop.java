@@ -15,51 +15,47 @@ import com.mm.cs.model.piece.Piece;
  * @version 1.0
  *
  */
-public class Bishop implements Piece {
-	private Board board;
-	
-	public Bishop(Board board){
-		this.board = board;
-	}
-	@Override
-	public void moveTo(Board board, int row, int column) {
-		//is the square free?
-		if (this.board.getBoard()[row][column].isFree()){
-			Square[][] boardArray = this.board.getBoard();
-			int bottomRow = 0;
-			int upperRow = 0;
-			int postColumn = 0;
-			int preColumn = 0;
-			//occupy the positions:
-			//1.- piece position
-			boardArray[row][column].setPiece(this);
+public class Bishop extends Piece {
 
-			//2.- diagonals
-			for (int i=0;i<boardArray[0].length;i++){
-				bottomRow = row + i;
-				upperRow = row - i;
-				postColumn = column + i;
-				preColumn = column - i;
-				
-				if (bottomRow >= 0 && bottomRow < boardArray.length) {
-					if (preColumn >= 0 && preColumn < boardArray[0].length) {
-						boardArray[bottomRow][preColumn].increaseOccupation();
-					}
+	public Bishop(Board board){
+		super(board);
+	}
+	
+	
+	@Override
+	protected void movement(int row, int column, Movement move){
+		Square[][] boardArray = this.board.getBoard();
+		int bottomRow = 0;
+		int upperRow = 0;
+		int postColumn = 0;
+		int preColumn = 0;
+		
+		//occupy the positions:
+		//1.- diagonals
+		for (int i=0;i<boardArray[0].length;i++){
+			bottomRow = row + i;
+			upperRow = row - i;
+			postColumn = column + i;
+			preColumn = column - i;
+			
+			if (bottomRow >= 0 && bottomRow < boardArray.length) {
+				if (preColumn >= 0 && preColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[bottomRow][preColumn], move);
 				}
-				if (bottomRow >= 0 && bottomRow < boardArray.length) {
-					if (postColumn >= 0 && postColumn < boardArray[0].length) {
-						boardArray[bottomRow][postColumn].increaseOccupation();
-					}
+			}
+			if (bottomRow >= 0 && bottomRow < boardArray.length) {
+				if (postColumn >= 0 && postColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[bottomRow][postColumn], move);
 				}
-				if (upperRow >= 0 && upperRow < boardArray.length) {
-					if (preColumn >= 0 && preColumn < boardArray[0].length) {
-						boardArray[upperRow][preColumn].increaseOccupation();
-					}
+			}
+			if (upperRow >= 0 && upperRow < boardArray.length) {
+				if (preColumn >= 0 && preColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[upperRow][preColumn], move);
 				}
-				if (upperRow >= 0 && upperRow < boardArray.length) {
-					if (postColumn >= 0 && postColumn < boardArray[0].length) {
-						boardArray[upperRow][postColumn].increaseOccupation();
-					}
+			}
+			if (upperRow >= 0 && upperRow < boardArray.length) {
+				if (postColumn >= 0 && postColumn < boardArray[0].length) {
+					this.modifyPosition(boardArray[upperRow][postColumn], move);
 				}
 			}
 		}

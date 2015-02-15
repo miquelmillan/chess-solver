@@ -19,7 +19,12 @@ import com.mm.cs.model.piece.impl.Queen;
  *
  */
 public class QueenTest {
-	
+	String cleanBoardConfiguration= 
+			   "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o ";	
 	@Test
 	public void testConstructor() {
 		Board board = new ArrayBoard(5, 5);
@@ -38,8 +43,10 @@ public class QueenTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, 2, 2);
+		queen.moveTo(2, 2);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		queen.removeFrom(2, 2);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -54,8 +61,10 @@ public class QueenTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, 0, 0);
+		queen.moveTo(0, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		queen.removeFrom(0, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -70,8 +79,10 @@ public class QueenTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, 0, 4);
+		queen.moveTo(0, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		queen.removeFrom(0, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -85,9 +96,11 @@ public class QueenTest {
 
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, 4, 0);
+		queen.moveTo(4, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
-	}
+		queen.removeFrom(4, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+	}	
 	
 	@Test
 	public void testBottomRightPosition() {
@@ -100,21 +113,23 @@ public class QueenTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, 4, 4);
+		queen.moveTo(4, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		queen.removeFrom(4, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, 5, 5);
+		queen.moveTo(5, 5);
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece queen = new Queen(board);
-		queen.moveTo(board, -1, 1);
+		queen.moveTo(-1, 1);
 	}
 }

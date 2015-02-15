@@ -19,7 +19,13 @@ import com.mm.cs.model.piece.impl.Bishop;
  *
  */
 public class BishopTest {
-	
+	String cleanBoardConfiguration= 
+			   "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o "
+			 + "o o o o o ";
+		
 	@Test
 	public void testConstructor() {
 		Board board = new ArrayBoard(5, 5);
@@ -38,8 +44,10 @@ public class BishopTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, 2, 2);
+		bishop.moveTo(2, 2);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		bishop.removeFrom(2, 2);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -54,8 +62,10 @@ public class BishopTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, 0, 0);
+		bishop.moveTo(0, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		bishop.removeFrom(0, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -70,8 +80,10 @@ public class BishopTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, 0, 4);
+		bishop.moveTo(0, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		bishop.removeFrom(0, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 
 	@Test
@@ -85,8 +97,10 @@ public class BishopTest {
 
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, 4, 0);
+		bishop.moveTo(4, 0);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		bishop.removeFrom(4, 0);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test
@@ -100,22 +114,24 @@ public class BishopTest {
 				
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, 4, 4);
+		bishop.moveTo(4, 4);
 		assertEquals(boardConfiguration, board.toString().replace(System.lineSeparator(), ""));
+		bishop.removeFrom(4, 4);
+		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, 5, 5);
+		bishop.moveTo(5, 5);
 	}
 	
 	@Test (expected=IndexOutOfBoundsException.class)
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(board, -1, 1);
+		bishop.moveTo(-1, 1);
 	}
 
 }
