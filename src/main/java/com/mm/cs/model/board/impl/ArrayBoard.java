@@ -1,5 +1,8 @@
 package com.mm.cs.model.board.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.Square;
 
@@ -73,6 +76,35 @@ public class ArrayBoard implements Board {
 					result[1]=j;
 				}
 			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<int[]> getFreePositions(){
+		List<int[]> result = new ArrayList<>();
+		
+		for (int i=0;i<board.length;i++){
+			for (int j=0;j<board[i].length;j++){
+				if (board[i][j].isFree()){
+					result.add(new int[]{i,j});
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean isValidPosition(int row, int column){
+		boolean result = false;
+			
+		if (	row >= 0 
+				&& column >= 0 
+				&& row < board.length 
+				&& column < board[0].length ) {
+			result = true;
 		}
 		
 		return result;

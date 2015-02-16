@@ -1,5 +1,8 @@
 package com.mm.cs.model.piece.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.Square;
 import com.mm.cs.model.piece.Piece;
@@ -22,20 +25,23 @@ public class Rook extends Piece {
 	}
 
 	@Override
-	protected void movement(int row, int column, Movement move){
+	protected List<Square> movement(int row, int column){
+		List<Square> result = new ArrayList<>();
 		Square[] columnSquares = board.getColumn(column);
 		Square[] rowSquares = board.getRow(row);
 		
 		//occupy the positions
 		//1.- column
 		for (Square square: columnSquares){
-			this.modifyPosition(square, move);
+			result.add(square);
 		}
 		
 		//2.- row
 		for (Square square: rowSquares){
-			this.modifyPosition(square, move);
+			result.add(square);
 		}
+		
+		return result;
 	}
 	
 	@Override

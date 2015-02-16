@@ -57,7 +57,7 @@ public class ArrayBoardTest {
 	}
 	
 	@Test
-	public void testGetFirstFreePosition(){
+	public void testGetFreePositions(){
 		/*
 		 "x o o o x "
 		 "o x o x o "
@@ -74,6 +74,7 @@ public class ArrayBoardTest {
 		
 		assertEquals(0, freePosition[0]);
 		assertEquals(1, freePosition[1]);
+		assertEquals(16,board.getFreePositions().size());
 		
 		/*
 		 "x Q x x x "
@@ -96,7 +97,7 @@ public class ArrayBoardTest {
 		 "x x x x o "
 		 "o x B x o "
 		 "x x o x x "
-		 "x x K o x "
+		 "x x N o x "
 		*/
 		
 		Piece knight = new Knight(board);
@@ -136,15 +137,15 @@ public class ArrayBoardTest {
 		
 		freePosition = board.getFirstFreePosition();
 		
-		assertEquals(3, freePosition[0]);
-		assertEquals(2, freePosition[1]);
+		assertEquals(2, freePosition[0]);
+		assertEquals(0, freePosition[1]);
 		
 		/*
-		 "x Q x x x "
-		 "x x x x K "
-		 "R x B x x "
-		 "x x Q x x "
-		 "x x K x x "
+			"x Q x x x "
+			"x x x x K "
+			"o x B x x "
+			"x x o x x "
+			"x x N o x "
 		*/
 		
 		Piece queen2 = new Queen(board);
@@ -152,21 +153,26 @@ public class ArrayBoardTest {
 		
 		freePosition = board.getFirstFreePosition();
 		
-		assertEquals(null, freePosition);
+		assertEquals(2, freePosition[0]);
+		assertEquals(0, freePosition[1]);
+		assertEquals(3,board.getFreePositions().size());
 		
 		/*
-		 "x Q x x x "
-		 "x x x x K "
-		 "R x B x x "
-		 "x x o x x "
-		 "x x K o x "
+		"x o o x x "
+		"o x o x K "
+		"o x B x x "
+		"x x o x x "
+		"x o N o x "
 		*/
 		
-		queen2.removeFrom(3, 2);
+		queen2.removeFrom(0, 1);
 		
 		freePosition = board.getFirstFreePosition();
 		
-		assertEquals(3, freePosition[0]);
-		assertEquals(2, freePosition[1]);
+		assertEquals(0, freePosition[0]);
+		assertEquals(1, freePosition[1]);
+		assertEquals(0,board.getFreePositions().get(0)[0]);
+		assertEquals(1,board.getFreePositions().get(0)[1]);
+		
 	}
 }

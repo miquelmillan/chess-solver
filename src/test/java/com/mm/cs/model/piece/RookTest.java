@@ -2,6 +2,8 @@ package com.mm.cs.model.piece;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+
 
 import org.junit.Test;
 
@@ -121,17 +123,17 @@ public class RookTest {
 		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
-	@Test (expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(5, 5);
+		assertFalse(rook.moveTo(5, 5));
 	}
 	
-	@Test (expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece rook = new Rook(board);
-		rook.moveTo(-1, 1);
+		assertFalse(rook.moveTo(-1, 1));
 	}
 }

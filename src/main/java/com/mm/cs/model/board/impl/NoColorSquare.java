@@ -37,7 +37,7 @@ public class NoColorSquare implements Square {
 	
 	public boolean isFree(){
 		boolean result = false;
-		if (piece == null && occupation == 0){
+		if (occupation == 0){
 			result = true;
 		}
 		return result;

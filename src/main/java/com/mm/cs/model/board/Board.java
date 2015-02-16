@@ -1,5 +1,7 @@
 package com.mm.cs.model.board;
 
+import java.util.List;
+
 /**
  * Contract interface for the OO chess board implementations.
  * It gives operations to quickly access to the board position or to have
@@ -44,4 +46,19 @@ public interface Board {
 	 * @return the First free position or null if no position is free.
 	 */
 	public int[] getFirstFreePosition();
+	
+	/**
+	 * Returns a list with the free positions of the board.
+	 * 
+	 * @return the array of the free positions or null if no position is free.
+	 */
+	public List<int[]> getFreePositions();
+	
+	/**
+	 * Determines if the passed coordinates are into the board or outside it
+	 * @param <em>row</em> the row of the position
+	 * @param <em>column</em> the column of the position
+	 * @return True if the position is valid (inside the board), otherwise false
+	 */
+	public boolean isValidPosition(int row, int column);
 }

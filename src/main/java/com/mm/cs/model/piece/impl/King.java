@@ -1,5 +1,8 @@
 package com.mm.cs.model.piece.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.Square;
 import com.mm.cs.model.piece.Piece;
@@ -21,7 +24,8 @@ public class King extends Piece {
 		super(board);
 	}
 	@Override
-	protected void movement(int row, int column, Movement move){
+	protected List<Square> movement(int row, int column){
+		List<Square> result = new ArrayList<>();
 		Square[][] boardArray = this.board.getBoard();
 		
 		//1.- circle piece
@@ -30,11 +34,13 @@ public class King extends Piece {
 				if ((i>=0 && j>=0) && 
 					(i<boardArray[0].length && j<boardArray.length))
 				{
-					this.modifyPosition(boardArray[j][i], move);
+					result.add(boardArray[j][i]);
 				}
 					
 			}
 		}
+		
+		return result;
 	}
 
 	@Override

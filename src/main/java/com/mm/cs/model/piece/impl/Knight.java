@@ -1,5 +1,8 @@
 package com.mm.cs.model.piece.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.Square;
 import com.mm.cs.model.piece.Piece;
@@ -22,7 +25,8 @@ public class Knight extends Piece {
 	}
 	
 	@Override
-	protected void movement(int row, int column, Movement move){
+	protected List<Square> movement(int row, int column){
+		List<Square> result = new ArrayList<>();
 		Square[][] boardArray = this.board.getBoard();
 		//Variables to calculate the L movements
 		int [][] signs = {{-1,-1},{-1,1},{1,-1},{1,1}};
@@ -31,7 +35,7 @@ public class Knight extends Piece {
 		
 		//occupy the positions
 		//1.- piece position
-		this.modifyPosition(boardArray[row][column], move);
+		result.add(boardArray[row][column]);
 		
 		//2.- L positions
 		// 4 times (changing signs):
@@ -43,7 +47,7 @@ public class Knight extends Piece {
 			twoColumnsL[1] = column + signs[i][1]*2;
 			if ((twoColumnsL[0]>=0 && twoColumnsL[0]<boardArray.length) && 
 					((twoColumnsL[1]>=0 && twoColumnsL[1]<boardArray[0].length))) {	
-				this.modifyPosition(boardArray[twoColumnsL[0]][twoColumnsL[1]], move);
+				result.add(boardArray[twoColumnsL[0]][twoColumnsL[1]]);
 			}
 			
 			//2 rows L
@@ -51,9 +55,11 @@ public class Knight extends Piece {
 			twoRowsL[1]=column + signs[i][1];
 			if ((twoRowsL[0]>=0 && twoRowsL[0]<boardArray.length) && 
 					((twoRowsL[1]>=0 && twoRowsL[1]<boardArray[0].length))) {	
-				this.modifyPosition(boardArray[twoRowsL[0]][twoRowsL[1]], move);
+				result.add(boardArray[twoRowsL[0]][twoRowsL[1]]);
 			}
 		}
+		
+		return result;
 	}
 	
 	@Override

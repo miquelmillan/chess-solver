@@ -1,5 +1,8 @@
 package com.mm.cs.model.piece.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mm.cs.model.board.Board;
 import com.mm.cs.model.board.Square;
 import com.mm.cs.model.piece.Piece;
@@ -21,7 +24,8 @@ public class Queen extends Piece {
 		super(board);
 	}
 	@Override
-	protected void movement(int row, int column, Movement move){
+	protected List<Square> movement(int row, int column){
+		List<Square> result = new ArrayList<>();
 		Square[][] boardArray = this.board.getBoard();
 		Square[] columnSquares = board.getColumn(column);
 		Square[] rowSquares = board.getRow(row);
@@ -40,35 +44,37 @@ public class Queen extends Piece {
 			
 			if (bottomRow >= 0 && bottomRow < boardArray.length) {
 				if (preColumn >= 0 && preColumn < boardArray[0].length) {
-					this.modifyPosition(boardArray[bottomRow][preColumn], move);
+					result.add(boardArray[bottomRow][preColumn]);
 				}
 			}
 			if (bottomRow >= 0 && bottomRow < boardArray.length) {
 				if (postColumn >= 0 && postColumn < boardArray[0].length) {
-					this.modifyPosition(boardArray[bottomRow][postColumn], move);
+					result.add(boardArray[bottomRow][postColumn]);
 				}
 			}
 			if (upperRow >= 0 && upperRow < boardArray.length) {
 				if (preColumn >= 0 && preColumn < boardArray[0].length) {
-					this.modifyPosition(boardArray[upperRow][preColumn], move);
+					result.add(boardArray[upperRow][preColumn]);
 				}
 			}
 			if (upperRow >= 0 && upperRow < boardArray.length) {
 				if (postColumn >= 0 && postColumn < boardArray[0].length) {
-					this.modifyPosition(boardArray[upperRow][postColumn], move);
+					result.add(boardArray[upperRow][postColumn]);
 				}
 			}
 		}
 		
 		//2.- column
 		for (Square square: columnSquares){
-			this.modifyPosition(square, move);
+			result.add(square);
 		}
 		
 		//3.- row
 		for (Square square: rowSquares){
-			this.modifyPosition(square, move);
+			result.add(square);
 		}
+		
+		return result;
 	}
 	@Override
 	public String toString(){

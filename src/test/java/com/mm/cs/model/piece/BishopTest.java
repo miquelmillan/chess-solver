@@ -2,6 +2,7 @@ package com.mm.cs.model.piece;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -120,18 +121,18 @@ public class BishopTest {
 		assertEquals(cleanBoardConfiguration, board.toString().replace(System.lineSeparator(), ""));
 	}
 	
-	@Test (expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testOutBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(5, 5);
+		assertFalse(bishop.moveTo(5, 5));
 	}
 	
-	@Test (expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testNegativeBoardPosition() {			
 		Board board = new ArrayBoard(5, 5);
 		Piece bishop = new Bishop(board);
-		bishop.moveTo(-1, 1);
+		assertFalse(bishop.moveTo(-1, 1));
 	}
 
 }

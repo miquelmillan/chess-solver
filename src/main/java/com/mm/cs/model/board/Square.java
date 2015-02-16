@@ -44,8 +44,7 @@ public interface Square {
 	public void decreaseOccupation();
 	/**
 	 * Returns if the current position is occupied or not. It is occupied if
-	 * a piece is placed on it or if the occupation index is greater than
-	 * 0.
+	 * if the occupation index is greater than 0.
 	 * 
 	 * @return if the current position is occupied
 	 */
