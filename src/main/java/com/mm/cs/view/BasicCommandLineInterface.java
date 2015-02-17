@@ -1,5 +1,7 @@
 package com.mm.cs.view;
 
+import java.util.Set;
+
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -9,32 +11,37 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.mm.cs.logic.ChessSolverLogic;
+import com.mm.cs.logic.impl.ChessSolverLogicImpl;
+import com.mm.cs.util.ParseUtil;
+
 public class BasicCommandLineInterface {
 
-	public Long solveChessProblem(int rows, int columns, int knight, int rook,
-			int bishop, int queen, int king) {
-		Long result = System.currentTimeMillis();
-
-		System.out.println("Rows:		" + rows);
-		System.out.println("Columns:	" + columns);
-		System.out.println("Knights:	" + knight);
-		System.out.println("Rooks:		" + rook);
-		System.out.println("Bishops:	" + bishop);
-		System.out.println("Queens: 	" + queen);
-		System.out.println("Kings:		" + king);
-
-		return result;
-	}
-
-	private int parseNumber(String param){
+	public int solveChessProblem(int rows, int columns, int knights, int rooks,
+			int bishops, int queens, int kings) {
 		int result = -1;
+		
 		try {
-			result = Integer.parseInt(param);
-		} catch (NumberFormatException nfe){
-			//do nothing
+			Set<String> configs = null;
+			ChessSolverLogic csl = new ChessSolverLogicImpl();
+			configs = csl.solveChessBoard(rows, columns, knights, rooks, bishops, queens, kings);
+			result = configs.size();
+			//Show the solutions
+			System.out.println("# of solutions: " + result);
+			for (String config : configs){
+				System.out.println("Solution: ");
+				System.out.println(config);
+			}
+		} catch (Throwable t){
+			//Throwable is not a recommended exception to catch normally, but
+			//as this is our UI facade it's crucial to catch it in order to retrieve
+			//the proper response in case of error
+			result = -2;
 		}
+		
 		return result;
 	}
+
 	
 	@SuppressWarnings("static-access")
 	public static void main(String... args) {
@@ -87,16 +94,16 @@ public class BasicCommandLineInterface {
 			} else {
 				BasicCommandLineInterface bcli = new BasicCommandLineInterface();
 				
-				int rowsNumber = bcli.parseNumber(line.getOptionValue("rows"));
-				int columnsNumber = bcli.parseNumber(line.getOptionValue("columns"));
-				int knightNumber = bcli.parseNumber(line.getOptionValue("knight"));
-				int rookNumber = bcli.parseNumber(line.getOptionValue("rook"));
-				int bishopNumber = bcli.parseNumber(line.getOptionValue("bishop"));
-				int queenNumber = bcli.parseNumber(line.getOptionValue("queen"));
-				int kingNumber = bcli.parseNumber(line.getOptionValue("king"));
+				int rowsNumber = ParseUtil.parseNumber(line.getOptionValue("rows"));
+				int columnsNumber = ParseUtil.parseNumber(line.getOptionValue("columns"));
+				int knightNumber = ParseUtil.parseNumber(line.getOptionValue("knight"));
+				int rookNumber = ParseUtil.parseNumber(line.getOptionValue("rook"));
+				int bishopNumber = ParseUtil.parseNumber(line.getOptionValue("bishop"));
+				int queenNumber = ParseUtil.parseNumber(line.getOptionValue("queen"));
+				int kingNumber = ParseUtil.parseNumber(line.getOptionValue("king"));
 				
 				if (rowsNumber > 0 && columnsNumber > 0) {
-					bcli.solveChessProblem(	rowsNumber, columnsNumber, knightNumber,
+					result = bcli.solveChessProblem(	rowsNumber, columnsNumber, knightNumber,
 											rookNumber, bishopNumber,
 											queenNumber, kingNumber);
 				} else {

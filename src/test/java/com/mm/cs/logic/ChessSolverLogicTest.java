@@ -17,29 +17,30 @@ public class ChessSolverLogicTest {
 		Set<String> configs = csl.solveChessBoard(3, 3, 0, 1, 0, 0, 2);
 		assertEquals(4, configs.size());
 		
-		
 		String config = 
-				"K o K " +
-				"o o o " +
-				"o R o ";
+				"K o K \n" +
+				"o o o \n" +
+				"o R o \n";
+		
 		assertTrue(configs.contains(config));
 		
 		config = 
-				"K o o " +
-				"o o R " +
-				"K o o ";
+				"K o o \n" +
+				"o o R \n" +
+				"K o o \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"o o K " +
-				"R o o " +
-				"o o K ";
+				"o o K \n" +
+				"R o o \n" +
+				"o o K \n";
 		assertTrue(configs.contains(config));
 		
 		config = 
-				"o R o " +
-				"o o o " +
-				"k o K ";
+				"o R o \n" +
+				"o o o \n" +
+				"K o K \n";
+		assertTrue(configs.contains(config));
 	}
 	
 	@Test
@@ -49,58 +50,59 @@ public class ChessSolverLogicTest {
 		assertEquals(8, configs.size());
 		
 		String config = 
-				"o N o N " +
-				"o o R o " +
-				"o N o N " +
-				"R o o o ";
+				"o N o N \n" +
+				"o o R o \n" +
+				"o N o N \n" +
+				"R o o o \n";
 		assertTrue(configs.contains(config));
 		
 		config = 
-				"o N o N " +
-				"R o o o " +
-				"o N o N " +
-				"o o R o ";
+				"o N o N \n" +
+				"R o o o \n" +
+				"o N o N \n" +
+				"o o R o \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"R o o o " +
-				"o N o N " +
-				"o o R o " +
-				"o N o N ";
+				"R o o o \n" +
+				"o N o N \n" +
+				"o o R o \n" +
+				"o N o N \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"o o R o " +
-				"o N o N " +
-				"R o o o " +
-				"o N o N ";
+				"o o R o \n" +
+				"o N o N \n" +
+				"R o o o \n" +
+				"o N o N \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"o R o o " +
-				"N o N o " +
-				"o o o R " +
-				"N o N o ";
+				"o R o o \n" +
+				"N o N o \n" +
+				"o o o R \n" +
+				"N o N o \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"o o o R " +
-				"N o N o " +
-				"o R o o " +
-				"N o N o ";
+				"o o o R \n" +
+				"N o N o \n" +
+				"o R o o \n" +
+				"N o N o \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"N o N o " +
-				"o o o R " +
-				"N o N o " +
-				"o R o o ";
+				"N o N o \n" +
+				"o o o R \n" +
+				"N o N o \n" +
+				"o R o o \n";
 		assertTrue(configs.contains(config));
 		
 		config =
-				"N o N o " +
-				"o R o o " +
-				"N o N o " +
-				"o o o R ";
+				"N o N o \n" +
+				"o R o o \n" +
+				"N o N o \n" +
+				"o o o R \n";
+		assertTrue(configs.contains(config));
 	}
 }
