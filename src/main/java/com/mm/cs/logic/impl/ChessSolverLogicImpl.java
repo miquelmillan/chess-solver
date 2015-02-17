@@ -55,22 +55,25 @@ public class ChessSolverLogicImpl implements ChessSolverLogic {
 	
 	private void solveBoard(Board board, Queue<Piece> pieces, Set<String> result){
 		int size = pieces.size();
+		Piece piece = null, oldPiece = null;
 		
 		if (size > 0){
 			for (int i=0;i<size;i++){
-				Piece piece = pieces.poll();
-				for (int[] position: board.getFreePositions()){
-					if (piece.moveTo(position[0], position[1])){
-						solveBoard(board, pieces, result);
-						piece.removeFrom(position[0], position[1]);
+				piece = pieces.poll();
+				if (oldPiece==null || !piece.toString().equals(oldPiece.toString())){
+					for (int[] position: board.getFreePositions()){
+						if (piece.moveTo(position[0], position[1])){
+							solveBoard(board, pieces, result);
+							piece.removeFrom(position[0], position[1]);
+						}
 					}
 				}
 				pieces.offer(piece);
+				oldPiece = piece;
 			}
 		} else {
 			//The add condition must be called only if no pieces are left to be placed in the board
 			result.add(BoardFormatUtil.format(board, BoardFormatUtil.Format.FANCY));
 		}
-		
 	}
 }
