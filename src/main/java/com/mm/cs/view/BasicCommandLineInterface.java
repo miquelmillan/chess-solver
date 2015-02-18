@@ -114,14 +114,14 @@ public class BasicCommandLineInterface {
 			} else {
 				BasicCommandLineInterface bcli = new BasicCommandLineInterface();
 				
-				int rowsNumber = ParseUtil.parseNumber(line.getOptionValue("rows"));
-				int columnsNumber = ParseUtil.parseNumber(line.getOptionValue("columns"));
-				int knightNumber = ParseUtil.parseNumber(line.getOptionValue("knights"));
-				int rookNumber = ParseUtil.parseNumber(line.getOptionValue("rooks"));
-				int bishopNumber = ParseUtil.parseNumber(line.getOptionValue("bishops"));
-				int queenNumber = ParseUtil.parseNumber(line.getOptionValue("queens"));
-				int kingNumber = ParseUtil.parseNumber(line.getOptionValue("kings"));
-				int parallelMode = ParseUtil.parseNumber(line.getOptionValue("parallel"));
+				int rowsNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("rows"));
+				int columnsNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("columns"));
+				int knightNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("knights"));
+				int rookNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("rooks"));
+				int bishopNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("bishops"));
+				int queenNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("queens"));
+				int kingNumber = ParseUtil.parseNaturalNumber(line.getOptionValue("kings"));
+				int parallelMode = ParseUtil.parseNaturalNumber(line.getOptionValue("parallel"));
 				
 				
 				

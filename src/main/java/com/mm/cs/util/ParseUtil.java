@@ -12,10 +12,10 @@ public class ParseUtil {
 	 * Transforms a String to a positive int
 	 * 
 	 * @param param The String to parse
-	 * @return a positive int if the string is numeric, -1 otherwise
+	 * @return a positive int if the string is numeric, 0 otherwise
 	 */
-	public static int parseNumber(String param){
-		int result = -1;
+	public static int parseNaturalNumber(String param){
+		int result = 0;
 		try {
 			result = Integer.parseInt(param);
 		} catch (NumberFormatException nfe){
