@@ -1,4 +1,5 @@
 Use maven to build the project:
  - mvn clean package
  
-Use it!
+To know how to execute it, run the following command once packaged:
+ - java -jar cs-1.0-jar-with-dependencies.jar -help
