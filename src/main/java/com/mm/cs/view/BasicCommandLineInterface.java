@@ -15,7 +15,14 @@ import com.mm.cs.logic.ChessSolverLogic;
 import com.mm.cs.logic.concurrent.impl.ChessSolverLogicConcurrentImpl;
 import com.mm.cs.logic.impl.ChessSolverLogicImpl;
 import com.mm.cs.util.ParseUtil;
-
+/**
+ * Main class of the chess solver. It acts as UI, parsing the console parameters and
+ * invoking the logic to solve the chess problem.
+ * 
+ * @author miquel.millan@gmail.com
+ * @version 1.0
+ *
+ */
 public class BasicCommandLineInterface {
 
 	public int solveChessProblem(int rows, int columns, int knights, int rooks,

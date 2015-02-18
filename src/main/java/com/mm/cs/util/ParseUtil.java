@@ -5,7 +5,7 @@ package com.mm.cs.util;
  * as the needs are quite small
  * 
  * @author miquel.millan@gmail.com
- *
+ * @version 1.0
  */
 public class ParseUtil {
 	/**

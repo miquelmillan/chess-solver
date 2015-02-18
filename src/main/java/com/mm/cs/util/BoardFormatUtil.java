@@ -6,7 +6,7 @@ import com.mm.cs.model.board.Board;
  * Utility class to format board statuses into different formats
  * 
  * @author miquel.millan@gmail.com
- *
+ * @version 1.0
  */
 public class BoardFormatUtil {
 	public static enum Format {

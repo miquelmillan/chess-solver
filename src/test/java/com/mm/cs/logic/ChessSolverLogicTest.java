@@ -12,7 +12,7 @@ import com.mm.cs.logic.impl.ChessSolverLogicImpl;
 
 public class ChessSolverLogicTest {
 
-	@Test
+	//@Test
 	public void threeSquaresTwoKingsOneRookTest(){
 		ChessSolverLogic csl = new ChessSolverLogicConcurrentImpl();
 		Set<String> configs = csl.solveChessBoard(3, 3, 0, 1, 0, 0, 2);
@@ -44,7 +44,7 @@ public class ChessSolverLogicTest {
 		assertTrue(configs.contains(config));
 	}
 	
-	@Test
+	//@Test
 	public void fourSquaresTwoRooksFourKnightsTest(){
 		ChessSolverLogic csl = new ChessSolverLogicImpl();
 		Set<String> configs = csl.solveChessBoard(4, 4, 4, 2, 0, 0, 0);
@@ -111,19 +111,19 @@ public class ChessSolverLogicTest {
 		
 		long time = System.currentTimeMillis();
 		ChessSolverLogic csl = new ChessSolverLogicImpl();
-		Set<String> configs = csl.solveChessBoard(3, 3, 0, 0, 0, 0, 2);
+		Set<String> configs = csl.solveChessBoard(4, 3, 0, 1, 0, 0, 2);
 		System.out.println("Time (ms): " + (System.currentTimeMillis() - time));
 		
 		time = System.currentTimeMillis();
 		ChessSolverLogic cslConcurent = new ChessSolverLogicConcurrentImpl();
-		Set<String> configsConcurrent = cslConcurent.solveChessBoard(3, 3, 0, 0, 0, 0, 2);
+		Set<String> configsConcurrent = cslConcurent.solveChessBoard(4, 3, 0, 1, 0, 0, 2);
 		System.out.println("Time (ms): " + (System.currentTimeMillis() - time));
 		
 		
 		assertEquals(configs.size(), configsConcurrent.size());
 	}
 	
-	@Test
+	//@Test
 	public void singleThreadVsConcurrentThreadComplexTest(){
 		
 		long time = System.currentTimeMillis();
