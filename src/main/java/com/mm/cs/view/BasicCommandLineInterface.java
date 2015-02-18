@@ -12,19 +12,27 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import com.mm.cs.logic.ChessSolverLogic;
+import com.mm.cs.logic.concurrent.impl.ChessSolverLogicConcurrentImpl;
 import com.mm.cs.logic.impl.ChessSolverLogicImpl;
 import com.mm.cs.util.ParseUtil;
 
 public class BasicCommandLineInterface {
 
 	public int solveChessProblem(int rows, int columns, int knights, int rooks,
-			int bishops, int queens, int kings) {
+			int bishops, int queens, int kings, int parallelMode) {
 		int result = -1;
 		
 		try {
 			Set<String> configs = null;
-			ChessSolverLogic csl = new ChessSolverLogicImpl();
-			configs = csl.solveChessBoard(rows, columns, knights, rooks, bishops, queens, kings);
+			
+			if (parallelMode == 1){
+				ChessSolverLogic csl = new ChessSolverLogicConcurrentImpl();
+				configs = csl.solveChessBoard(rows, columns, knights, rooks, bishops, queens, kings);
+			} else {
+				ChessSolverLogic csl = new ChessSolverLogicImpl();
+				configs = csl.solveChessBoard(rows, columns, knights, rooks, bishops, queens, kings);
+			}
+			
 			result = configs.size();
 			//Show the solutions
 			System.out.println("# of solutions: " + result);
@@ -54,25 +62,29 @@ public class BasicCommandLineInterface {
 		Option columns = OptionBuilder.hasArg().withArgName("columns")
 				.withDescription("Number of columns").create("columns");
 		
-		Option knight = OptionBuilder.hasArg().withArgName("knight")
-				.withDescription("Number of knights").create("knight");
+		Option knight = OptionBuilder.hasArg().withArgName("knights")
+				.withDescription("Number of knights").create("knights");
 		
-		Option rook = OptionBuilder.hasArg().withArgName("rook")
-				.withDescription("Number of rooks").create("rook");
+		Option rook = OptionBuilder.hasArg().withArgName("rooks")
+				.withDescription("Number of rooks").create("rooks");
 		
-		Option bishop = OptionBuilder.hasArg().withArgName("bishop")
-				.withDescription("Number of bishops").create("bishop");
+		Option bishop = OptionBuilder.hasArg().withArgName("bishops")
+				.withDescription("Number of bishops").create("bishops");
 		
-		Option queen = OptionBuilder.hasArg().withArgName("queen")
-				.withDescription("Number of queens").create("queen");
+		Option queen = OptionBuilder.hasArg().withArgName("queens")
+				.withDescription("Number of queens").create("queens");
 		
-		Option king = OptionBuilder.hasArg().withArgName("king")
-				.withDescription("Number of kings").create("king");
+		Option king = OptionBuilder.hasArg().withArgName("kings")
+				.withDescription("Number of kings").create("kings");
 		
-		Option help = new Option("help",  "Chess solver command line interface. Rows and"
-										+ "columns parameter are mandatory. The number of"
-										+ "knights, rooks, bishops, queens and kings are"
-										+ "optional, but at least one of them must be provided"
+		Option parallel = OptionBuilder.hasArg().withArgName("parallel")
+				.withDescription("Parallel mode (experimental). 1 ==> activated, any other number ==> deactivated").create("parallel");
+		
+		
+		Option help = new Option("help",  "Chess solver command line interface. Rows and "
+										+ "columns parameter are mandatory. The number of "
+										+ "knights, rooks, bishops, queens and kings are "
+										+ "optional, but at least one of them must be provided "
 										+ "in order to obtain results with sense.");
 
 		options.addOption(rows);
@@ -82,6 +94,7 @@ public class BasicCommandLineInterface {
 		options.addOption(bishop);
 		options.addOption(queen);
 		options.addOption(king);
+		options.addOption(parallel);
 		options.addOption(help);
 
 		CommandLineParser parser = new BasicParser();
@@ -96,18 +109,22 @@ public class BasicCommandLineInterface {
 				
 				int rowsNumber = ParseUtil.parseNumber(line.getOptionValue("rows"));
 				int columnsNumber = ParseUtil.parseNumber(line.getOptionValue("columns"));
-				int knightNumber = ParseUtil.parseNumber(line.getOptionValue("knight"));
-				int rookNumber = ParseUtil.parseNumber(line.getOptionValue("rook"));
-				int bishopNumber = ParseUtil.parseNumber(line.getOptionValue("bishop"));
-				int queenNumber = ParseUtil.parseNumber(line.getOptionValue("queen"));
-				int kingNumber = ParseUtil.parseNumber(line.getOptionValue("king"));
+				int knightNumber = ParseUtil.parseNumber(line.getOptionValue("knights"));
+				int rookNumber = ParseUtil.parseNumber(line.getOptionValue("rooks"));
+				int bishopNumber = ParseUtil.parseNumber(line.getOptionValue("bishops"));
+				int queenNumber = ParseUtil.parseNumber(line.getOptionValue("queens"));
+				int kingNumber = ParseUtil.parseNumber(line.getOptionValue("kings"));
+				int parallelMode = ParseUtil.parseNumber(line.getOptionValue("parallel"));
+				
+				
 				
 				if (rowsNumber > 0 && columnsNumber > 0) {
 					result = bcli.solveChessProblem(	rowsNumber, columnsNumber, knightNumber,
 											rookNumber, bishopNumber,
-											queenNumber, kingNumber);
+											queenNumber, kingNumber, 
+											parallelMode);
 				} else {
-					System.out.println("Parameter not declared");
+					System.out.println("Parameter not declared. Board sizes are mandatory. Use -help for more info.");
 					HelpFormatter formatter = new HelpFormatter();
 					formatter.printHelp("chess-solver", options);
 					result = 1;

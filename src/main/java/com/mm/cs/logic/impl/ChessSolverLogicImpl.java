@@ -52,7 +52,13 @@ public class ChessSolverLogicImpl implements ChessSolverLogic {
 		
 		return result;
 	}
-	
+	/**
+	 * Backtracking implementation to calculate the combinations
+	 * 
+	 * @param board The board to operate with
+	 * @param pieces The list of the pieces remaining to operate with
+	 * @param result A set where to place the results
+	 */
 	private void solveBoard(Board board, Queue<Piece> pieces, Set<String> result){
 		int size = pieces.size();
 		Piece piece = null, oldPiece = null;

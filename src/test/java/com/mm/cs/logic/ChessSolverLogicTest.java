@@ -7,13 +7,14 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.mm.cs.logic.concurrent.impl.ChessSolverLogicConcurrentImpl;
 import com.mm.cs.logic.impl.ChessSolverLogicImpl;
 
 public class ChessSolverLogicTest {
 
-	@Test
+	//@Test
 	public void threeSquaresTwoKingsOneRookTest(){
-		ChessSolverLogic csl = new ChessSolverLogicImpl();
+		ChessSolverLogic csl = new ChessSolverLogicConcurrentImpl();
 		Set<String> configs = csl.solveChessBoard(3, 3, 0, 1, 0, 0, 2);
 		assertEquals(4, configs.size());
 		
@@ -43,7 +44,7 @@ public class ChessSolverLogicTest {
 		assertTrue(configs.contains(config));
 	}
 	
-	@Test
+	//@Test
 	public void fourSquaresTwoRooksFourKnightsTest(){
 		ChessSolverLogic csl = new ChessSolverLogicImpl();
 		Set<String> configs = csl.solveChessBoard(4, 4, 4, 2, 0, 0, 0);
@@ -105,4 +106,38 @@ public class ChessSolverLogicTest {
 				"o o o R \n";
 		assertTrue(configs.contains(config));
 	}
+	@Test
+	public void singleThreadVsConcurrentThreadSimpleTest(){
+		
+		long time = System.currentTimeMillis();
+		ChessSolverLogic csl = new ChessSolverLogicImpl();
+		Set<String> configs = csl.solveChessBoard(3, 3, 0, 0, 0, 0, 2);
+		System.out.println("Time (ms): " + (System.currentTimeMillis() - time));
+		
+		time = System.currentTimeMillis();
+		ChessSolverLogic cslConcurent = new ChessSolverLogicConcurrentImpl();
+		Set<String> configsConcurrent = cslConcurent.solveChessBoard(3, 3, 0, 0, 0, 0, 2);
+		System.out.println("Time (ms): " + (System.currentTimeMillis() - time));
+		
+		
+		assertEquals(configs.size(), configsConcurrent.size());
+	}
+	
+	//@Test
+	public void singleThreadVsConcurrentThreadComplexTest(){
+		
+		long time = System.currentTimeMillis();
+		ChessSolverLogic csl = new ChessSolverLogicImpl();
+		Set<String> configs = csl.solveChessBoard(4, 4, 4, 2, 0, 0, 0);
+		System.out.println("Time (ms): " + (System.currentTimeMillis() - time));
+		
+		time = System.currentTimeMillis();
+		ChessSolverLogic cslConcurent = new ChessSolverLogicConcurrentImpl();
+		Set<String> configsConcurrent = cslConcurent.solveChessBoard(4, 4, 4, 2, 0, 0, 0);
+		System.out.println("Time (ms): " + (System.currentTimeMillis() - time));
+		
+		
+		assertEquals(configs.size(), configsConcurrent.size());
+	}
+
 }
